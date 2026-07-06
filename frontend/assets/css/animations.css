@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Animations — CSS-only, used across pages via utility classes
+   ========================================================================== */
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInEnd { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInEndRtl { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: translateX(0); } }
+[dir="rtl"] .anim-slide-in-end { animation-name: slideInEndRtl; }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes progressIndeterminate { 0% { transform: translateX(-60%); } 100% { transform: translateX(160%); } }
+
+.anim-fade-in { animation: fadeIn var(--dur-slow) var(--ease-out) both; }
+.anim-fade-up { animation: fadeUp var(--dur-slow) var(--ease-out) both; }
+.anim-scale-in { animation: scaleIn var(--dur-base) var(--ease-spring) both; }
+.anim-float { animation: floatY 6s ease-in-out infinite; }
+
+.stagger > * { animation: fadeUp var(--dur-slow) var(--ease-out) both; }
+.stagger > *:nth-child(1) { animation-delay: .02s; }
+.stagger > *:nth-child(2) { animation-delay: .08s; }
+.stagger > *:nth-child(3) { animation-delay: .14s; }
+.stagger > *:nth-child(4) { animation-delay: .2s; }
+.stagger > *:nth-child(5) { animation-delay: .26s; }
+.stagger > *:nth-child(6) { animation-delay: .32s; }
+
+.skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 37%, var(--skeleton-base) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2.5px solid rgba(255,255,255,.35);
+  border-top-color: currentColor;
+  animation: spin .7s linear infinite;
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
